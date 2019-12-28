@@ -43,6 +43,7 @@ class PageOne(tk.Frame):
         
         self.b = pong.Ball(self.canvas, self.width, self.height)
         self.canvas.pack(fill=BOTH, expand=False)
+        self.winner=""
 
         self.player1Points.config(font=("Courier", 40), fg="white", bg="black")
         self.player2Points.config(font=("Courier", 40), fg="white", bg="black")
@@ -82,17 +83,21 @@ class PageOne(tk.Frame):
                 self.m = -self.m
                 self.b.changeBallPosition(self.n, self.m)
 
-            
-            self.parent.after(10, self.movBall)
+            if(self.b.positionX != -100) and (self.b.positionY != -100):
+                self.parent.after(1, self.movBall)
         else:
             if self.player1.points == 10:
-                winner = tk.Label(self, text = "The Winner is " + str(self.player1.name))
-                winner.config(font=("Courier", 25), bg="black", fg="white")
-                winner.place(relx=0.5, rely=0.5, anchor=CENTER)
+                self.winner=self.player1.name
+              
+                self.player1.points=0
+                self.player2.points=0
+                self.controller.addFrame(PageTwo, self.winner)
+                self.controller.show_frame(PageTwo)
             else:
-                winner = tk.Label(self, text = "The Winner is " + str(self.player1.name))
-                winner.config(font=("Courier", 25), bg="black", fg="white")
-                winner.place(relx=0.5, rely=0.5, anchor=CENTER)
+                self.winner=self.player2.name
+
+                self.controller.addFrame(PageTwo, self.winner)
+                self.controller.show_frame(PageTwo)
         
 
     def key(self, event):
@@ -121,16 +126,22 @@ class PageOne(tk.Frame):
 
 class PageTwo(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, winner):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Page Two!!!")
-        label.pack(pady=10,padx=10)
+        winner1 = ""
+        for w in winner:
+            winner1 += w
+        label = tk.Label(self, text="The winner is:" + winner1)
+        label.config(font=("Courier", 25), bg="black", fg="white")
+        label.pack(pady=100,padx=10)
 
-        button1 = tk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage))
+        button1 = tk.Button(self, text="Play again",
+                            command=lambda: controller.show_frame(PageOne))
+        button1.config(bg="black", fg="white",width=50)
         button1.pack()
 
-        button2 = tk.Button(self, text="Page One",
-                            command=lambda: controller.show_frame(PageOne))
+        button2 = tk.Button(self, text="Exit",
+                            command=lambda: controller.destroy())
+        button2.config(bg="black", fg="white",width=50)
         button2.pack()
 

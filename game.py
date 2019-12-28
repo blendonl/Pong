@@ -19,22 +19,40 @@ class Game(tk.Tk):
       
         self.frames = {}
 
-        for F in (pages.StartPage, pages.PageOne, pages.PageTwo):
+        for F in (pages.StartPage, pages.PageOne):
 
             frame = F(self.container, self)
             frame.config(bg="black")
             self.frames[F] = frame
             frame.pack(side="bottom", fill="both", expand=False)
 
+
+
         self.show_frame(pages.StartPage)
 
     def show_frame(self, cont):
         for F in self.frames.values():
             F.pack_forget()
-        frame = self.frames[cont]
-        frame.pack(fill="both", expand = False)
-        if(cont == pages.PageOne):    
-            frame.movBall()
+     
+        if(cont == pages.PageOne):
+            self.addFrame( cont)            
+            self.frames[cont].pack(fill="both", expand = False)
+            self.frames[cont].movBall()
+        else:
+            self.frames[pages.PageOne].destroy()
+            frame = self.frames[cont]
+            frame.pack(fill="both", expand = False)
+        
+    def addFrame(self, cont, *winner):
+        if(cont == pages.PageTwo):
+            frame = cont(self.container, self, winner)
+        else:
+            frame = cont(self.container, self)
+        frame.config(bg="black")
+        self.frames[cont] = frame
+        frame.pack(side="bottom", fill="both", expand=False)
+        frame.pack_forget()
+
 
 
 def main():
