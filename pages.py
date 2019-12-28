@@ -84,7 +84,7 @@ class PageOne(tk.Frame):
                 self.b.changeBallPosition(self.n, self.m)
 
             if(self.b.positionX != -100) and (self.b.positionY != -100):
-                self.parent.after(1, self.movBall)
+                self.parent.after(10, self.movBall)
         else:
             if self.player1.points == 10:
                 self.winner=self.player1.name
