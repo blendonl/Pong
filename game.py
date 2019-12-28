@@ -1,8 +1,7 @@
 from tkinter import *
 import tkinter as tk
 import keyboard
-import player
-import ball
+import pong
 import pages
 
 

@@ -15,7 +15,7 @@ class StartPage(tk.Frame):
         button.pack()
 
         button2 = tk.Button(self, text="Exit",
-                            command=lambda: parent.Exit)
+                            command=lambda: controller.destroy())
         button2.config(bg="black", fg="white",width=50)
         button2.pack(side="bottom")
         
