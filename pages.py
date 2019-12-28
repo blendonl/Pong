@@ -58,14 +58,14 @@ class PageOne(tk.Frame):
 
         if((self.player1.points < 10)) and ((self.player2.points < 10)):
             self.b.changeBallPosition(self.n, self.m)
-            if self.b.positionX > self.width:
+            if self.b.positionX > self.width - 20:
                 self.b.changeBallPosition(-self.width/2, 0) 
                 self.player1.points += 1
                 self.player1Points.config(text=self.player1.points)
             if self.b.positionY > self.height - 20:
                  self.m = -1  
                  self.b.changeBallPosition(self.n, self.m)
-            if self.b.positionX < 0:
+            if self.b.positionX < -20:
                 self.b.changeBallPosition(self.width/2, 0)
                 self.player2.points += 1
                 self.player2Points.config(text=self.player2.points)
@@ -73,11 +73,11 @@ class PageOne(tk.Frame):
             if self.b.positionY < 75:
                 self.m = 1 
                 self.b.changeBallPosition(self.n, self.m)
-            if (self.b.positionX == self.player1.x ) and ( self.player1.positionY <= self.b.positionY <= self.player1.positionY + 50):
+            if (self.b.positionX == self.player1.x - 5) and ( self.player1.positionY <= self.b.positionY <= self.player1.positionY + 50):
                 self.n = -self.n
                 self.m = -self.m
                 self.b.changeBallPosition(self.n, self.m)
-            elif (self.b.positionX == self.player2.x ) and ((self.player2.positionY <= self.b.positionY <= self.player2.positionY + 50)):
+            elif (self.b.positionX == self.player2.x - 20) and ((self.player2.positionY <= self.b.positionY <= self.player2.positionY + 50)):
                 self.n = -self.n
                 self.m = -self.m
                 self.b.changeBallPosition(self.n, self.m)
